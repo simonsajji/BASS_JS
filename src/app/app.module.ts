@@ -71,14 +71,15 @@ const isIE = window.navigator.userAgent.indexOf('MSIE')>-1 || window.navigator.u
     {
       interactionType:InteractionType.Redirect,
       authRequest:{
-        scopes:['user.read']
+        scopes:['user.read','group.Read.All']
       }
     },
     {
       interactionType:InteractionType.Redirect,
       protectedResourceMap:new Map(
         [
-         ['https://graph.microsoft.com/v1.0/me',['user.Read']]
+          ['https://graph.microsoft.com/v1.0/me', ['user.read']],
+          ['https://graph.microsoft.com/v1.0/groups', ['group.read.all']]
         ]
       )
     })
