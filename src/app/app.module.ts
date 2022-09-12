@@ -25,6 +25,8 @@ import { ToastrServices } from './services/toastr.service';
 import { HomeComponent } from './components/home/home.component';
 import { MatDialog } from '@angular/material/dialog';
 // import { AuthenticationComponent } from './modules/authentication/components/authentication.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { SkeletonLoaderComponent } from './components/skeleton-loader/skeleton-loader.component';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE')>-1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -36,6 +38,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE')>-1 || window.navigator.u
     ContextMenuComponent,
     ProfileComponent,
     HomeComponent,
+    SkeletonLoaderComponent,
     // AuthenticationComponent
   ],
   imports: [
@@ -49,6 +52,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE')>-1 || window.navigator.u
     MatCardModule,
     MatListModule,
     MatDividerModule,
+    NgxSkeletonLoaderModule,
     ToastrModule.forRoot({
       positionClass :'toast-top-right',
       preventDuplicates: true
