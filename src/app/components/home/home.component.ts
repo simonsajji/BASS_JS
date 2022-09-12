@@ -52,6 +52,7 @@ export class HomeComponent implements OnInit {
   dropPoint:any;
   loader:any;
   isDragActive:boolean = false;
+  dataloader:boolean = false;
 
   constructor(@Inject(MSAL_GUARD_CONFIG) private msalGuardConfig:MsalGuardConfiguration,
   private msalBroadCasrService:MsalBroadcastService,
@@ -198,13 +199,15 @@ export class HomeComponent implements OnInit {
   }
 
   selectRoute(route:any){
-    // this.loader = true;
+    this.dataloader = true;
     this.routesView = true;
     this.branchView = false;
     this.locationsView = false;
     this.getDetailsofSelectedRoute(route);
     this.selectedRoute = route;
-    // this.loader = false;
+    let timeOutId = setTimeout(()=>{
+      this.dataloader = false;
+    },400)
   }
 
   getDetailsofSelectedRoute(route:any){

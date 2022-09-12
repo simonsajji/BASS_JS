@@ -86,7 +86,7 @@
                 <mat-spinner [diameter]="50"></mat-spinner>
             </div>
 
-            <ng-container *ngIf="!loader">
+            <ng-container >
                 <ng-container *ngIf="branchView"><p class="f-s-13 t-a-right m-b-10  m-r-10 max-h"><i class="fa far fa-home"></i>/ Branches / <span class="highlighted-text f-w-500"> {{selectedBranch?.BranchName}}</span></p></ng-container>  
                 <ng-container *ngIf="locationsView"><p class="f-s-13 t-a-right m-b-10  m-r-10 max-h"><i class="fa far fa-home"></i>/ Branches / {{selectedBranch?.BranchName}} / <span class="highlighted-text f-w-500">Locations</span></p></ng-container>  
                 <ng-container *ngIf="routesView"><p class="f-s-13 t-a-right m-b-10  m-r-10 max-h"><i class="fa far fa-home"></i>/ Branches / {{selectedBranch?.BranchName}} / Locations / <span class="highlighted-text f-w-500">Route</span></p></ng-container>  
@@ -155,37 +155,41 @@
                             </div>
                         </div>
                 </div>
-                    <div *ngIf="locationsView && !loader" class="  p-t-10  w-100 flex-column r-ctr1">
-                        <div class=" d-flex unrouted-container align-center  m-r-20 p-t-2 p-b-2">
-                            <div class=" sub-head unrouted d-flex align-center m-l-5 w-100 p-t-5 p-b-5 f-w-400 f-s-13"><span  #sr> 
-                                <!-- <i class="fa fa-angle-right f-s-18 p-r-10 fa-fw hover-highlight"></i>  -->
-                                <img class="m-r-2 m-l-2 " src="assets/icons/unrouted2.png" alt="" height="20px" width="20px"> <span class="f-s-12 p-l-2 hover-highlight">UNROUTED</span></span>  
-                                <!-- <hr [style.width]="'calc(98% - ' + (sr.clientWidth) + 'px)'"  class="hor-line "> -->
+                    <div *ngIf="locationsView " class="  p-t-10  w-100 flex-column r-ctr1">
+                        <ng-container *ngIf="!loader" >
+                            <div class=" d-flex unrouted-container align-center  m-r-20 p-t-2 p-b-2">
+                                <div class=" sub-head unrouted d-flex align-center m-l-5 w-100 p-t-5 p-b-5 f-w-400 f-s-13"><span  #sr> 
+                                    <!-- <i class="fa fa-angle-right f-s-18 p-r-10 fa-fw hover-highlight"></i>  -->
+                                    <img class="m-r-2 m-l-2 " src="assets/icons/unrouted2.png" alt="" height="20px" width="20px"> <span class="f-s-12 p-l-2 hover-highlight">UNROUTED</span></span>  
+                                    <!-- <hr [style.width]="'calc(98% - ' + (sr.clientWidth) + 'px)'"  class="hor-line "> -->
+                                </div>
                             </div>
-                        </div>
-                        <div class="w-100 m-t-5 m-l-0 m-r-0  ">
-                            <ng-container *ngFor="let branch of branchData">
-                                <div class=" m-t-2 f-s-13 p-relative" *ngIf="branch?.showRoutesList">
-                                    <ng-container *ngIf="!loader && branch?.Routes">
-                                        <div  class=" f-s-12 w-100 m-b-10" *ngFor="let route of branch?.Routes">
-                                            <div class="d-flex w-100 align-center m-l-5">
-                                                <div  (contextmenu)="onRightClick($event,route)" (click)="selectRoute(route)" class="no-close d-flex align-bottom p-t-5 p-b-5 c-gr  c-pointer route-heading">
-                                                    <!-- <i (click)="getLocationsofRoute(route)" *ngIf="!route?.isrouteDropped" class="fa fa-angle-right f-s-18 p-r-10 fa-fw hover-highlight"></i>  -->
-                                                    <!-- <i (click)="route.isrouteDropped=!route?.isrouteDropped" *ngIf="route?.isrouteDropped" class="fa fa-angle-down f-s-18 p-r-10 fa-fw hover-highlight"></i>  -->
-                                                    <img src="assets/icons/navigation.png" alt="" height="20px" width="20px"><span  class="m-l-5 hover-highlight">{{route?.RouteName}}</span> 
-                                                    <div *ngIf="contextmenu && route?.RouteId == dropArea?.RouteId" class="no-close">
-                                                        <app-context-menu [x]="contextmenuX" [y]="contextmenuY" (moveEvent)="moveLocationOnClick($event)"></app-context-menu>
-                                                    </div>
-                                                </div> 
-                                            </div>
-                                    </div>
-                                    </ng-container>
-                                </div>                        
-                            </ng-container>                    
-                    </div>
+                            <div class="w-100 m-t-5 m-l-0 m-r-0  ">
+                                <ng-container *ngFor="let branch of branchData">
+                                    <div class=" m-t-2 f-s-13 p-relative" *ngIf="branch?.showRoutesList">
+                                        <ng-container *ngIf="!loader && branch?.Routes">
+                                            <div  class=" f-s-12 w-100 m-b-10" *ngFor="let route of branch?.Routes">
+                                                <div class="d-flex w-100 align-center m-l-5">
+                                                    <div  (contextmenu)="onRightClick($event,route)" (click)="selectRoute(route)" class="no-close d-flex align-bottom p-t-5 p-b-5 c-gr  c-pointer route-heading">
+                                                        <!-- <i (click)="getLocationsofRoute(route)" *ngIf="!route?.isrouteDropped" class="fa fa-angle-right f-s-18 p-r-10 fa-fw hover-highlight"></i>  -->
+                                                        <!-- <i (click)="route.isrouteDropped=!route?.isrouteDropped" *ngIf="route?.isrouteDropped" class="fa fa-angle-down f-s-18 p-r-10 fa-fw hover-highlight"></i>  -->
+                                                        <img src="assets/icons/navigation.png" alt="" height="20px" width="20px"><span  class="m-l-5 hover-highlight">{{route?.RouteName}}</span> 
+                                                        <div *ngIf="contextmenu && route?.RouteId == dropArea?.RouteId" class="no-close">
+                                                            <app-context-menu [x]="contextmenuX" [y]="contextmenuY" (moveEvent)="moveLocationOnClick($event)"></app-context-menu>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                        </div>
+                                        </ng-container>
+                                    </div>                        
+                                </ng-container>                    
+                            </div>
+                        </ng-container>
                 </div>
-                    <div *ngIf="routesView && !loader" class=" m-b-10 p-t-10  p-b-10 w-100 flex-column r-ctr1">
-                        <div *ngIf="!loader" class="w-100 m-t-5 m-l-0 m-r-0">
+                    <div *ngIf="routesView" class=" m-b-10 p-t-10  p-b-10 w-100 flex-column r-ctr1">
+                        <app-skeleton-loader *ngIf="dataloader" [loaderDatas]="[1,2,3]" [higherWidth]="70" [lowerWidth]="65"
+                        [gridColumn]="1"></app-skeleton-loader>
+                        <div *ngIf="!dataloader" class="w-100 m-t-5 m-l-0 m-r-0">
                             <div *ngIf="selectedRoute?.Locations?.length==0" class="d-flex align-center j-center c-gr f-s-15 empty-space ">
                                 No Locations to Show
                             </div>
@@ -204,10 +208,8 @@
                             </div>                    
                         </div>
                     </div>
-
             </ng-container>
-          
-                        
+              
     </div>
   </div>
 </div>
