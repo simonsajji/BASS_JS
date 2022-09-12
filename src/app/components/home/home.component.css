@@ -576,7 +576,10 @@ background-color: transparent;
 
 .loader2{
     position: absolute;
-    top:20vh;
+    top:30vh;
+    left:0;
+    width: 300px;
+    height: 100px;
 }
 
 .loader ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
@@ -584,6 +587,7 @@ background-color: transparent;
 }
 .loader2 ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
     stroke: #20abdd;
+   
 }
 
 .hover-highlight:hover{

@@ -134,7 +134,7 @@ export class HomeComponent implements OnInit {
 
   getLocationsofRoute(route:any){
     console.log(route?.RouteId);
-    this.loader = true;
+    // this.loader = true;
     this.apiService.get(`http://bassnewapi.testzs.com/api/Branch/LocationList/${route?.RouteId}`).subscribe((res)=>{
       // console.log(res);
       route.Locations = res;
@@ -143,7 +143,7 @@ export class HomeComponent implements OnInit {
         item.selected = false;
       })
       console.log(this.branchData);
-      this.loader = false;
+      // this.loader = false;
     })
   }
 
@@ -198,13 +198,13 @@ export class HomeComponent implements OnInit {
   }
 
   selectRoute(route:any){
-    this.loader = true;
+    // this.loader = true;
     this.routesView = true;
     this.branchView = false;
     this.locationsView = false;
     this.getDetailsofSelectedRoute(route);
     this.selectedRoute = route;
-    this.loader = false;
+    // this.loader = false;
   }
 
   getDetailsofSelectedRoute(route:any){
@@ -280,7 +280,7 @@ export class HomeComponent implements OnInit {
             if(this.dropArea?.RouteId == route?.RouteId) route?.Locations?.push(...this.draggeditem)
           })
         });
-        this.toastr.success(`Moved  ${this.draggeditem.length} Locations to Route ${this.dropArea?.RouteId}  successfully`);
+        this.toastr.success(`Moved  ${this.draggeditem.length} Locations to Route ${this.dropArea?.RouteName}  successfully`);
         this.draggeditem = [];
         this.dropArea = null;
         this.dropPoint = null;
