@@ -46,11 +46,43 @@
 
 .details-body {
     background-color: rgb(249, 249, 249);
-    height: auto;
+    height: calc(100vh - 100px);
 }
 
 .left-menu{
-    min-height: calc(100vh - 100px);
+    /* height: calc(100vh - 100px); */
+    overflow-y: scroll;
+
+}
+
+.l-container{
+    min-height: calc(100vh - 100px)!important;
+}
+
+.l-bar{
+    width: auto;
+    height: calc(100vh - 120px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.r-ctr1{
+    width: auto;
+    height: calc(100% - 120px);
+    overflow-y: scroll;
+    overflow-x: hidden;   
+}
+.r-ctr{
+    width: auto;
+    height: calc(100vh - 220px);
+    overflow-y: scroll;
+    overflow-x: hidden;   
+}
+.r-ctr5{
+    width: auto;
+    height: calc(100vh - 210px);
+    overflow-y: hidden;
+    overflow-x: hidden;   
 }
 
 .bg-shadow{
@@ -82,6 +114,13 @@
     background: #fff;
     border: 0.1rem solid #8383834f;
     border-radius: 7px;
+    min-height: calc(100vh - 120px);
+}
+.item-box1{
+    /* height: auto; */
+    background: #fff;
+    border: 0.1rem solid #8383834f;
+    border-radius: 7px;
 }
 .item-box2{
     height: auto;
@@ -107,6 +146,19 @@
     border: 0.034rem solid #9f9f9f4f;
     border-radius: 7px;
 
+}
+
+.item-box6{
+    /* height: auto; */
+    background: #fff;
+    border: 0.1rem solid #8383834f;
+    border-radius: 7px;
+    min-height: calc(100vh - 240px);
+}
+
+.min-ht-container{
+    min-height: calc(100vh - 90px);
+    overflow-y: hidden;
 }
 
 
@@ -279,6 +331,15 @@
     color: rgb(46, 167, 211);
 }
 
+.dropped-text{
+    /* color: rgb(46, 167, 211); */
+    font-weight: 500;
+}
+.ctr{
+    position: relative;
+
+}
+
 .search-bar{
     height: 32px;
 }
@@ -350,8 +411,17 @@
 .flex-1{
     flex:1;
 }
+
+.flex-2{
+    flex: 2;
+}
 .flex-3{
     flex:3;
+}
+
+.flex-4{
+    flex: 4;
+
 }
 
 .icon{
@@ -479,7 +549,12 @@ background-color: transparent;
 }
 
 .empty-space{
-    height: 100px;
+    height: 40vh;
+}
+
+.empty-menu{
+    height: 60px;
+    width: 100%;
 }
 
 .over-scroll-locationsview{
@@ -499,7 +574,15 @@ background-color: transparent;
     top:40vh;
 }
 
+.loader2{
+    position: absolute;
+    top:20vh;
+}
+
 .loader ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #20abdd;
+}
+.loader2 ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
     stroke: #20abdd;
 }
 
@@ -509,4 +592,20 @@ background-color: transparent;
 
 .unrouted-container{
     width: calc(100% - 10px);
+}
+
+.align-top{
+    align-items: flex-start;
+}
+
+.drop-point{
+    cursor:  move!important;
+    color:#156583;
+    font-weight: 500;
+}
+
+:global ::ng-deep .drag-active{
+    cursor: grabbing move!important;
+    color:#156583;
+    font-weight: 500;
 }

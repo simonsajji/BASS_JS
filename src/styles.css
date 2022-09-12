@@ -15,12 +15,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-c
 ::-webkit-scrollbar-track {
     -webkit-border-radius: 10px;
     border-radius: 10px;
+    background-color: transparent!important;
   }
+
+
   
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #eee;
+    background: transparent!important;
+  }
+
+  div.r-ctr1::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgb(224, 224, 224)!important;
   }
 
 .mat-dialog-container {
@@ -97,4 +106,14 @@ body{
 }
 
 
-    
+.ngx-toastr {
+    width: 30vw !important;  
+  }
+
+.c-grab{
+    cursor: grab!important;
+}
+
+.p-relative{
+    position: relative;
+}

@@ -10,6 +10,7 @@ import { ConfirmBoxComponent } from '../confirm-box/confirm-box.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrServices } from 'src/app/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
+import { A11yModule } from '@angular/cdk/a11y';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,8 +25,7 @@ export class HomeComponent implements OnInit {
   currentAccount:any;
   selectedTabIndex: number = 1;
   fetchedBranches:any;
-  selectedBranchLoc:any;
-  draggeditem:any;
+  draggeditem:any = [];
   dropArea:any;
   branches:any = [
     {branchname:'',locations:{dropdown:true,selected:true,unrouted:[],
@@ -48,6 +48,10 @@ export class HomeComponent implements OnInit {
   locationsView:boolean = false;
   routesView:boolean = false;
   selectedBranch:any;
+  selectedRoute:any;
+  dropPoint:any;
+  loader:any;
+  isDragActive:boolean = false;
 
   constructor(@Inject(MSAL_GUARD_CONFIG) private msalGuardConfig:MsalGuardConfiguration,
   private msalBroadCasrService:MsalBroadcastService,
@@ -74,13 +78,11 @@ export class HomeComponent implements OnInit {
       element.locations.loclength+=route?.locs?.length;
     })
    });
-   this.selectedBranchLoc = this.branches[0];
    if(this.branchData) this.branchData[0].dropped = true;
    this.branchView = true;
    this.routesView = false;
    this.locationsView = false;
    if(this.branchData) this.selectedBranch = this.branchData[0];
-
   }
 
   logout(ev:any){
@@ -98,7 +100,6 @@ export class HomeComponent implements OnInit {
         branch.routesDropped = false;
         branch.showRoutesList = false;
       })
-      // this.branchData[0].selected = true;
       this.branchData[0].dropped = true;
       this.branchView = true;
       this.routesView = false;
@@ -126,21 +127,27 @@ export class HomeComponent implements OnInit {
         }
         else if(viewtype == 'dropView') branch.routesDropped = true;
         branch.Routes = res;
+        this.loader = false;
       }
     })
   }
 
   getLocationsofRoute(route:any){
     console.log(route?.RouteId);
-    console.log(this.branchData)
+    this.loader = true;
     this.apiService.get(`http://bassnewapi.testzs.com/api/Branch/LocationList/${route?.RouteId}`).subscribe((res)=>{
       // console.log(res);
       route.Locations = res;
       route.isrouteDropped = true;
-      console.log(this.branchData)
+      route?.Locations.forEach((item:any)=>{
+        item.selected = false;
+      })
+      console.log(this.branchData);
+      this.loader = false;
     })
-
   }
+
+  
 
   currentbranchSelect(branch:any){
     this.branchView = true;
@@ -148,18 +155,15 @@ export class HomeComponent implements OnInit {
     this.routesView = false;
     this.selectedBranch = branch;
     branch.showRoutesList = false;
-    // this.locationsView = false;
-    // branch.selected = true;
-    // this.getAllRoutesofBranch(branch);
 
   }
 
   
   expandBranch(branch:any){
-    this.shrinkAllBranches();
+    // this.shrinkAllBranches();
     this.branchData?.forEach((element:any)=>{
       if(element?.BranchId == branch?.BranchId) element.dropped = true;
-      else element.dropped = false;
+      // else element.dropped = false;
     })
   }
 
@@ -181,45 +185,72 @@ export class HomeComponent implements OnInit {
   }
 
   selectBranchLocation(branch:any){
-    // this.branches?.forEach((element:any) => {
-    //   if(branch?.branchname == element?.branchname){
-    //     element.locations.selected = true;
-    //     this.selectedBranchLoc = branch;
-    //   }
-    //   else element.locations.selected  = false;
-    // });
     this.getAllRoutesofBranch(branch,'locationsView')
     this.branchView = false;
     this.routesView = false;
+    this.selectedRoute = '';
+    branch?.Routes?.forEach((route:any)=>{
+      route.selected = false;
+    })
     this.locationsView = true;
     branch.showRoutesList = true;
-
-
+    this.loader = true;
   }
+
+  selectRoute(route:any){
+    this.loader = true;
+    this.routesView = true;
+    this.branchView = false;
+    this.locationsView = false;
+    this.getDetailsofSelectedRoute(route);
+    this.selectedRoute = route;
+    this.loader = false;
+  }
+
+  getDetailsofSelectedRoute(route:any){
+    this.apiService.get(`http://bassnewapi.testzs.com/api/Branch/LocationList/${route?.RouteId}`).subscribe((res)=>{
+      route.Locations = res;
+      route?.Locations.forEach((item:any)=>{
+        item.selected = false;
+      })
+      if(this.selectedRoute?.Locations) this.selectedRoute.Locations = res;
+    });
+   
+  }
+
 
   onRightClick(ev:any,item:any){
     ev?.preventDefault();
-    console.log("right cliked",item);
     if(item?.RouteName){
       this.dropArea = item;
       this.contextmenuX = ev?.clientX
       this.contextmenuY = ev?.clientY
       this.contextmenu=true;
     } 
-    else {this.dropArea = null;}
+    else this.dropArea = null;
     // if(this.draggeditem && this.dropArea) this.moveLocation();
     return false;
   }
 
   selectLocationCard(ev:any,item:any){
-    if(item?.LocationId) this.draggeditem = item;
-    else{ this.draggeditem = null;}
+    if(item?.selected){
+      item.selected = false;
+      this.draggeditem = this.draggeditem.filter((loc:any)=>{
+        if(item?.LocationId != loc?.LocationId) return item 
+      })
+    }
+    else{
+      item.selected = true;
+      if(item?.LocationId) this.draggeditem?.push(item);
+      else{ this.draggeditem = null;}
+      console.log(this.draggeditem)
+    }
+    
   }
 
-  //disables the menu
   disableContextMenu(){
     this.contextmenu= false;
- }
+  }
 
   moveLocation(){
     const dialogRef = this.dialog.open(ConfirmBoxComponent, {
@@ -230,23 +261,29 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed == true) {
         // remove location from current route
+        console.log(this.draggeditem)
         this.branchData?.forEach((element:any) => {
           element?.Routes?.forEach((route:any)=>{
-            route?.Locations.forEach((loc:any,i:any)=>{
-              if(this.draggeditem?.LocationId == loc?.LocationId) route?.Locations?.splice(i,1);
-            })
+              this.draggeditem?.forEach((item:any)=>{
+               route.Locations =  route?.Locations?.filter((loc:any,index:any)=>{return (loc?.LocationId != item?.LocationId)})
+              })              
+            // })
           })
         });
+         // also remove it from selectedRoute
+         this.draggeditem?.forEach((item:any)=>{
+           this.selectedRoute.Locations =  this.selectedRoute?.Locations?.filter((loc:any,index:any)=>{return (loc?.LocationId != item?.LocationId)})
+        })  
         // add location from new route
         this.branchData?.forEach((element:any) => {
           element?.Routes?.forEach((route:any)=>{
-            if(this.dropArea?.RouteId == route?.RouteId) route?.Locations?.push(this.draggeditem)
+            if(this.dropArea?.RouteId == route?.RouteId) route?.Locations?.push(...this.draggeditem)
           })
         });
-        this.toastr.success(`"Moved Location ${this.draggeditem.LocationId} to Route ${this.dropArea?.RouteId}  successfully`);
-        this.draggeditem = null;
+        this.toastr.success(`Moved  ${this.draggeditem.length} Locations to Route ${this.dropArea?.RouteId}  successfully`);
+        this.draggeditem = [];
         this.dropArea = null;
-        
+        this.dropPoint = null;
       }
     });
     
@@ -261,5 +298,24 @@ export class HomeComponent implements OnInit {
       this.contextmenu = false;
     }
   }
+
+  itemDragged(location:any){
+    // if(location?.LocationId) this.draggeditem?.push(location);
+    // else{ this.draggeditem = null}
+    console.log(this.draggeditem)
+
+  }
+
+  allowDrop(ev:any,route:any) {
+    ev.preventDefault();
+    this.dropPoint = route;
+  }
+
+  itemDrop(ev:any,route:any){
+    this.dropArea = route;
+    console.log(this.dropArea?.RouteId,  this.draggeditem[0]?.RouteId)
+    if(this.draggeditem && this.dropArea && (this.dropArea?.RouteId != this.draggeditem[0]?.RouteId)) this.moveLocation();
+  }
+
 
 }
