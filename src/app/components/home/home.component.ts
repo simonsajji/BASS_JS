@@ -116,7 +116,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getAllRoutesofBranch(branch:any,viewtype:any){
+  getAllRoutesofBranch(obj:any){
+    let branch = obj?.branch;
+    let viewtype = obj?.view;
+    console.log(branch,viewtype)
     this.apiService.get(`http://bassnewapi.testzs.com/api/Branch/RouteList/${branch?.BranchId}`).subscribe((res)=>{
       console.log(res);
       if(branch.branchId == res[0].branchId){
@@ -156,7 +159,6 @@ export class HomeComponent implements OnInit {
     this.routesView = false;
     this.selectedBranch = branch;
     branch.showRoutesList = false;
-
   }
 
   
@@ -186,7 +188,7 @@ export class HomeComponent implements OnInit {
   }
 
   selectBranchLocation(branch:any){
-    this.getAllRoutesofBranch(branch,'locationsView')
+    this.getAllRoutesofBranch({branch:branch,view:'locationsView'})
     this.branchView = false;
     this.routesView = false;
     this.selectedRoute = '';
@@ -222,20 +224,18 @@ export class HomeComponent implements OnInit {
   }
 
 
-  onRightClick(ev:any,item:any){
-    ev?.preventDefault();
+  onRightClick(item:any){
     if(item?.RouteName){
-      this.dropArea = item;
-      this.contextmenuX = ev?.clientX
-      this.contextmenuY = ev?.clientY
-      this.contextmenu=true;
+      // this.dropArea = item;
+      // this.contextmenuX = ev?.clientX
+      // this.contextmenuY = ev?.clientY
+      // this.contextmenu=true;
     } 
     else this.dropArea = null;
-    // if(this.draggeditem && this.dropArea) this.moveLocation();
     return false;
   }
 
-  selectLocationCard(ev:any,item:any){
+  selectLocationCard(item:any){
     if(item?.selected){
       item.selected = false;
       this.draggeditem = this.draggeditem.filter((loc:any)=>{
@@ -302,12 +302,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  itemDragged(location:any){
-    // if(location?.LocationId) this.draggeditem?.push(location);
-    // else{ this.draggeditem = null}
-    console.log(this.draggeditem)
+  // itemDragged(location:any){
+  //   console.log(this.draggeditem)
 
-  }
+  // }
 
   allowDrop(ev:any,route:any) {
     ev.preventDefault();
@@ -319,6 +317,8 @@ export class HomeComponent implements OnInit {
     console.log(this.dropArea?.RouteId,  this.draggeditem[0]?.RouteId)
     if(this.draggeditem && this.dropArea && (this.dropArea?.RouteId != this.draggeditem[0]?.RouteId)) this.moveLocation();
   }
+
+
 
 
 }

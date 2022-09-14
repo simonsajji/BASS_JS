@@ -27,6 +27,8 @@ import { MatDialog } from '@angular/material/dialog';
 // import { AuthenticationComponent } from './modules/authentication/components/authentication.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SkeletonLoaderComponent } from './components/skeleton-loader/skeleton-loader.component';
+import { DetailsComponent } from './components/details/details.component';
+import { LeftMenuComponent } from './components/left-menu/left-menu.component';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE')>-1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -39,6 +41,8 @@ const isIE = window.navigator.userAgent.indexOf('MSIE')>-1 || window.navigator.u
     ProfileComponent,
     HomeComponent,
     SkeletonLoaderComponent,
+    DetailsComponent,
+    LeftMenuComponent,
     // AuthenticationComponent
   ],
   imports: [

@@ -14,6 +14,7 @@
     color:rgb(64, 64, 210);
 }
 
+
 .d-flex{
     display: flex;
 }
@@ -45,13 +46,12 @@
 }
 
 .details-body {
+    background-color: rgb(249, 249, 249);
     height: calc(100vh - 100px);
 }
 
 .left-menu{
-    /* height: calc(100vh - 100px); */
     overflow-y: scroll;
-
 }
 
 .l-container{
@@ -437,13 +437,21 @@
 }
 
 .selected{
-    background-color: whitesmoke;
+    background-color: rgb(247, 248, 248);
+    border-top:0.02rem solid rgba(226, 226, 226,0.97);
+    border-bottom:0.02rem solid rgba(226, 226, 226,0.97);
 }
 
 .selected-item{
-    color:#25addf;
+    color:#25addf!important;
     font-weight: 500 !important;
 }
+
+.selected-item > .count{
+    color:#25addf!important;
+}
+
+
 
 .text-overfl{
     white-space: wrap; 
@@ -593,6 +601,25 @@ background-color: transparent;
     color:#0dabe4!important;
 }
 
+
+
+.hover-highlight:hover > .count{
+    color:#0dabe4!important;
+
+}
+
+.hover-highlight.disable:hover{
+    color:black!important;
+}
+
+.hover-highlight.disable:hover > .count{
+    color:black!important;
+}
+
+.hover-highlight .count{
+    color:#005d7f;
+}
+
 .unrouted-container{
     width: calc(100% - 10px);
 }
@@ -603,14 +630,15 @@ background-color: transparent;
 
 .drop-point{
     cursor:  move!important;
-    color:#156583;
+    color:#084b64;
     font-weight: 500;
-    background-color: whitesmoke;
+    background-color: rgb(250, 248, 248);
 }
 
 :global ::ng-deep .drag-active{
     cursor: grabbing move!important;
     color:#156583;
     font-weight: 500;
-    
+   
 }
+

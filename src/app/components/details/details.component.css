@@ -45,6 +45,7 @@
 }
 
 .details-body {
+    background-color: rgb(249, 249, 249);
     height: calc(100vh - 100px);
 }
 
@@ -355,7 +356,7 @@
 
 .main-search-bar{
     height: 32px;
-    flex:4;
+    width: 450px;
 }
 
 .main-search-bar > input{
@@ -509,9 +510,40 @@ background-color: transparent;
 }
 
 .location-card{
+    /* width:150px; */
+    flex:1;
+    height:125px;
+    border: 0.2rem solid rgba(220, 220, 220,0.9);
+    /* border: 0.2rem solid rgba(189, 189, 189, 0.9); */
+    border-radius: 5px;
+    background-color: #fff;
+
+}
+
+.loc-round{
+    border-radius: 50%;
+    width: 19px;
+    height: 18px;
+    border: 0.01rem solid rgb(213, 213, 213);
+    position: absolute;
+    top:-8%;
+    left:2%;
+    /* background-color:rgba(30, 117, 169, 0.86);; */
+    background-color: white;
+    z-index: 2;
+}
+
+.bg-blue{
+    color:#0dabe4;
+}
+
+.bg-green{
+    background-color: rgba(33, 128, 163, 0.9);
+}
+.card{
     width:160px;
     height:160px;
-    border: 0.1rem solid rgba(220, 220, 220,0.9);
+    border: 0;
     border-radius: 5px;
     background-color: #fff;
 
@@ -534,6 +566,11 @@ background-color: transparent;
 
 .loc-name{
     height: 40px;
+    word-wrap: break-word;
+}
+
+.loc-container{
+    flex-basis: 0.4;
 }
 
 .primaryloc-selected{
@@ -605,12 +642,75 @@ background-color: transparent;
     cursor:  move!important;
     color:#156583;
     font-weight: 500;
-    background-color: whitesmoke;
 }
 
 :global ::ng-deep .drag-active{
     cursor: grabbing move!important;
     color:#156583;
     font-weight: 500;
-    
+}
+
+.count{
+    color:#1488b2;
+    font-weight: 400 !important;
+}
+
+.text-overfl{
+    overflow: ellipsis;
+    word-break: normal;
+}
+
+.box-parent{
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 8px;
+    background: #fff;
+    min-height: 125px;
+}
+
+.border-active{
+    border: 2px solid blue;
+}
+
+.h-min{
+    height: 30px;
+}
+
+.align-top{
+    align-items: flex-start;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.j-bottom{
+    justify-content: baseline;
+}
+
+.align-end{
+    align-items: flex-end;
+}
+
+.h-min-text{
+    height: 16px;
+}
+
+.flex-wrap{
+    flex-wrap: wrap;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    padding: 5px;
+  }
+
+.c-grab{
+    cursor: grabbing!important;
+    cursor: -webkit-grab !important;
+    cursor: -moz-grab !important;
+    cursor: -o-grab !important;
+    cursor: -ms-grab!important;
+    cursor: grab!important;
 }
