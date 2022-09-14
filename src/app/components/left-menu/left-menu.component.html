@@ -17,10 +17,10 @@
                                 <img class="c-pointer" (click)="expandBranch(branch)" *ngIf="!branch?.dropped"
                                     src="assets/icons/right2.png" alt="" height="65%" width="65%">
                             </div>
-                            <div (click)="currentbranchSelect(branch)"
+                            <div (click)="currentbranchSelect(branch)" [ngClass]="(branchView && selectedBranch?.BranchId==branch?.BranchId)? 'selected-item ' : ''"
                                 class="route d-flex align-center c-pointer">
                                 <img src="assets/icons/branch.png" alt="" height="18px" width="16px">
-                                <div class="m-l-2 f-s-14 f-w-500">{{branch?.BranchName}}</div>
+                                <div class="m-l-2 f-s-14 f-w-500" >{{branch?.BranchName}}</div>
                             </div>
                         </div>
                         <ng-container *ngIf="branch?.dropped">

@@ -269,4 +269,10 @@ height: 15px;
     }
   }
 
+  .bg-green{
+    background-color: rgba(33, 128, 163, 0.9);
+}
+  .c-green{
+    color: rgba(33, 128, 163, 0.9);
+}
  

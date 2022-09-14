@@ -14,7 +14,7 @@
                 <div class="flex-column m-l-5 j-end">
                     <div *ngIf="branchView" class="f-s-16 f-w-500">{{selectedBranch?.BranchName}}</div>
                     <div *ngIf="locationsView" class="f-s-16 f-w-500 m-l-5">LOCATIONS ({{selectedBranch?.LocationCount}})</div>
-                    <div *ngIf="routesView " class=" f-w-500 flex-column j-end m-l-2"><div class="m-t-6 f-s-13">{{selectedRoute?.RouteName}}</div>  <div class="count m-l-2 f-s-11  max-h f-w-400">{{selectedRoute?.ChildLocationCount}} Locations</div></div>
+                    <div *ngIf="routesView " class=" f-w-500 flex-column j-end m-l-2"><div class="m-t-6 f-s-13">{{selectedRoute?.RouteName}}</div>  <div class="count m-l-3 f-s-11  max-h f-w-400">{{selectedRoute?.ChildLocationCount}} Locations</div></div>
                 </div>
             </div>
             
