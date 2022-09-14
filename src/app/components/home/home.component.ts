@@ -207,18 +207,23 @@ export class HomeComponent implements OnInit {
     this.locationsView = false;
     this.getDetailsofSelectedRoute(route);
     this.selectedRoute = route;
-    let timeOutId = setTimeout(()=>{
-      this.dataloader = false;
-    },400)
+    
   }
 
   getDetailsofSelectedRoute(route:any){
     this.apiService.get(`http://bassnewapi.testzs.com/api/Branch/LocationList/${route?.RouteId}`).subscribe((res)=>{
-      route.Locations = res;
-      route?.Locations.forEach((item:any)=>{
-        item.selected = false;
-      })
-      if(this.selectedRoute?.Locations) this.selectedRoute.Locations = res;
+      if(res){
+        route.Locations = res;
+        route?.Locations.forEach((item:any)=>{
+          item.selected = false;
+        })
+        if(this.selectedRoute?.Locations) this.selectedRoute.Locations = res;
+        let timeOutId = setTimeout(()=>{
+          if(this.selectedRoute?.Locations?.length > 0)  this.dataloader = false;
+        },400)
+      }
+      else this.dataloader = false;
+      
     });
    
   }
@@ -301,11 +306,6 @@ export class HomeComponent implements OnInit {
       this.contextmenu = false;
     }
   }
-
-  // itemDragged(location:any){
-  //   console.log(this.draggeditem)
-
-  // }
 
   allowDrop(ev:any,route:any) {
     ev.preventDefault();

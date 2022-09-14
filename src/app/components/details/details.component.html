@@ -10,15 +10,15 @@
             <div class="d-flex align-center  p-l-10 p-r-10 flex-1">
                 <img *ngIf="branchView" src="assets/icons/branch.png" width="24px" height="24px" alt="">
                 <img *ngIf="locationsView" src="assets/icons/multiplelocations.png" width="22px" height="26px" alt="">
-                <img *ngIf="routesView" src="assets/icons/navigation.png" width="24px" height="24px" alt="">
+                <img *ngIf="routesView" src="assets/icons/navigation.png" width="26px" height="26px" alt="">
                 <div class="flex-column m-l-5 j-end">
                     <div *ngIf="branchView" class="f-s-16 f-w-500">{{selectedBranch?.BranchName}}</div>
                     <div *ngIf="locationsView" class="f-s-16 f-w-500 m-l-5">LOCATIONS ({{selectedBranch?.LocationCount}})</div>
-                    <div *ngIf="routesView " class="f-s-13 f-w-500 flex-column j-end"><div>{{selectedRoute?.RouteName}}</div>  <div class="count m-l-2 f-s-12 max-h f-w-400">{{selectedRoute?.ChildLocationCount}} Locations</div></div>
+                    <div *ngIf="routesView " class=" f-w-500 flex-column j-end m-l-2"><div class="m-t-6 f-s-13">{{selectedRoute?.RouteName}}</div>  <div class="count m-l-2 f-s-11  max-h f-w-400">{{selectedRoute?.ChildLocationCount}} Locations</div></div>
                 </div>
             </div>
             
-            <div class="d-flex align-center main-search-bar p-l-10 p-r-10 ">
+            <div class="d-flex align-center main-search-bar p-l-10 p-r-10 m-r-5  j-end">
                 <input class="f-s-13 p-5" type="text" placeholder="Search">
                 <i class="fa fa-search fa-flip-horizontal sb " ></i>
                 <div class="main-s-button d-flex align-center j-center f-s-12 p-l-10 p-r-10 gap-2">
