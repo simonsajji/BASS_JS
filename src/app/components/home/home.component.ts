@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrServices } from 'src/app/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
 import { A11yModule } from '@angular/cdk/a11y';
+import { MoveService } from 'src/app/services/move.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -56,7 +57,7 @@ export class HomeComponent implements OnInit {
 
   constructor(@Inject(MSAL_GUARD_CONFIG) private msalGuardConfig:MsalGuardConfiguration,
   private msalBroadCasrService:MsalBroadcastService,
-  private authService:MsalService,private loginService:LoginService,private router:Router,private apiService:ApiService,private dialog: MatDialog,private toastr: ToastrServices) { 
+  private authService:MsalService,private loginService:LoginService,private router:Router,private apiService:ApiService,private dialog: MatDialog,private toastr: ToastrServices,private moveService:MoveService) { 
     this._routeListener = router.events.subscribe((event) => {
       if (event instanceof NavigationEnd){
          this.isUserLoggedIn = true;
@@ -84,6 +85,9 @@ export class HomeComponent implements OnInit {
    this.routesView = false;
    this.locationsView = false;
    if(this.branchData) this.selectedBranch = this.branchData[0];
+   this.moveService.getDropPoint().subscribe((item:any) => {
+    this.dropPoint = item;
+  });
   }
 
   logout(ev:any){
@@ -207,6 +211,7 @@ export class HomeComponent implements OnInit {
     this.locationsView = false;
     this.getDetailsofSelectedRoute(route);
     this.selectedRoute = route;
+    this.draggeditem = [];
     
   }
 
@@ -293,8 +298,13 @@ export class HomeComponent implements OnInit {
         this.dropArea = null;
         this.dropPoint = null;
       }
+      
     });
-    
+       
+  }
+
+  moveApiLocation(){
+
   }
 
   moveLocationOnClick(ev:any){
@@ -318,7 +328,11 @@ export class HomeComponent implements OnInit {
     if(this.draggeditem && this.dropArea && (this.dropArea?.RouteId != this.draggeditem[0]?.RouteId)) this.moveLocation();
   }
 
-
-
+  drgEnter(ev:any){
+    this.moveService.setDropPoint(null);
+  }
+  drgEv(ev:any){
+    this.moveService.setDropPoint(this.dropPoint);
+  }
 
 }

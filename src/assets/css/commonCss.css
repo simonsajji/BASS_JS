@@ -1357,6 +1357,9 @@
   .f-s-26 {
     font-size: 26px !important;
   }
+  .f-s-28 {
+    font-size: 28px !important;
+  }
   
   /* Additional style section*/
   
@@ -1475,4 +1478,13 @@
   }
   .word-wrap{
     word-wrap:normal;
+  }
+
+  .d-none{
+    display: none!important;
+    
+  }
+
+  .v-hidden{
+    visibility: hidden;
   }

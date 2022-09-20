@@ -35,7 +35,9 @@ export class DetailsComponent implements OnInit,OnChanges{
   }
 
   chooseRoute(route:any){
+    this.moveService.setDraggedItems([]);
     this.selectRouteEvent.emit(route);
+    
   }
 
   onRightClick(ev:any,route:any){
@@ -70,6 +72,15 @@ export class DetailsComponent implements OnInit,OnChanges{
       }
       console.log(this.draggeditem)
     }
+  }
+
+  clearSelectedLocations(){
+    this.draggeditem = [];
+    this.moveService.setDraggedItems(this.draggeditem);
+    this.selectedRoute?.Locations?.forEach((element:any) => {
+      element.selected = false;
+      
+    });
   }
 
 

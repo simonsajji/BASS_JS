@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 export class MoveService {
 
   draggedItem:any = new BehaviorSubject<any>([]);
+  dropPoint:any = new BehaviorSubject<any>({});
   constructor() { }
 
   getDraggedItems(){
@@ -14,5 +15,12 @@ export class MoveService {
 
   setDraggedItems(temp: any){
     return this.draggedItem.next(temp);
+  }
+  getDropPoint(){
+    return this.dropPoint.asObservable();
+  }
+
+  setDropPoint(temp: any){
+    return this.dropPoint.next(temp);
   }
 }

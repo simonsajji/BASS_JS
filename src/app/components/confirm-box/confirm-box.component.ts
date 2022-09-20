@@ -7,13 +7,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./confirm-box.component.css']
 })
 export class ConfirmBoxComponent implements OnInit {
-  message: string = ""
+  message: string = "";
+  datanew : any;
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<ConfirmBoxComponent>
     ) {
     if (data) {
       this.message = data.message || this.message;
+      this.datanew = data;
     }
     // this.dialogRef.updateSize('300vw','300vw')
   }
